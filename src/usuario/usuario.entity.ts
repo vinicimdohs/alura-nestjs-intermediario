@@ -1,3 +1,4 @@
+import { Exclude, Expose } from "class-transformer";
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 import { unique } from "./is-nome-de-usuario-unico.validator";
 
@@ -6,6 +7,9 @@ export class Usuario{
 
     @unique({
         message: 'this field must be unique'
+    })
+    @Expose({
+        name: 'username'
     })
     @IsNotEmpty()
     @IsString({
@@ -18,6 +22,12 @@ export class Usuario{
     })
     email: string;
 
+    @Expose({
+        name: 'password'
+    })
+    @Exclude({
+        toPlainOnly: true
+    })
     @IsNotEmpty({
         message : 'senha é obrigatória'
     })
